@@ -3,6 +3,11 @@
 #include <string.h>
 #include "tree.h"
 
+
+/**
+ * @param tree 树
+ * 初始化树
+ * */
 void initTree(Tree *tree)
 {
   for (int i = 0; i < MAX; i++)
@@ -13,6 +18,11 @@ void initTree(Tree *tree)
   tree->nodeNum = 0;
 }
 
+/**
+ * @param parent  父节点索引
+ * @param value   新节点值 
+ * @param tree    树
+**/
 void insertTreeNode(int parent, char value, Tree *tree)
 {
   tree->nodes[tree->nodeNum].value = value;
