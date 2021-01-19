@@ -26,7 +26,7 @@ void insertTreeNode(int parent, char value, Tree *tree)
 {
   tree->nodes[tree->nodeNum].value = value;
   tree->nodes[tree->nodeNum].parent = parent;
-  tree->nodeNum++;
+  tree->nodeNum = tree->nodeNum + 1;
 }
 
 /**
@@ -36,18 +36,63 @@ void insertTreeNode(int parent, char value, Tree *tree)
 TreeNode getTreeRoot(Tree *tree)
 {
   TreeNode treeNode;
-  if(tree->nodeNum<0)
+  if (tree->nodeNum < 0)
   {
     return treeNode;
   }
-  for(int i= 0;i<tree->nodeNum;i++){
-    if(tree->nodes[i].parent<0){
-      treeNode= tree->nodes[i];
+  for (int i = 0; i < tree->nodeNum; i++)
+  {
+    if (tree->nodes[i].parent < 0)
+    {
+      treeNode = tree->nodes[i];
     }
   }
   return treeNode;
 }
 
+void goOverTree(Tree *tree)
+{
+  for (int i = 0; i < tree->nodeNum; i++)
+  {
+    printf("%c \b \r\n", tree->nodes[i].value);
+    for (int j = i + 1; j < tree->nodeNum; j++)
+    {
+      if (tree->nodes[j].parent == i)
+      {
+        printf("  %c", tree->nodes[j].value);
+      }
+    }
+    printf("\r\n");
+  }
+}
 
+/**
+ * 按层次展示树
+ **/
+void RDisplay(Tree *tree, int index, int gap)
+{
+  //层次缩进
+  for (int i = 0; i < gap; i++)
+  {
+    printf("_"); //用来显示树的层次
+  }
+  printf("%c \r\n", tree->nodes[index].value);
 
+  //循环查找当前节点的子节点，递归展示
+  for (int i = index; i < tree->nodeNum; i++)
+  {
+    if (index == tree->nodes[i].parent)
+    {
+      RDisplay(tree, i, gap + 1);
+    }
+  }
+}
 
+/**
+ * @param tree  树 
+ *  获取树的深度 
+ **/
+int getTreeDeep(Tree *tree)
+{
+
+}

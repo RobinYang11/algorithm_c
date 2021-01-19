@@ -6,7 +6,7 @@ int main(int argc, char const *argv[])
 
 	Tree tree;
 	initTree(&tree);
-	char letters[] = {'Z', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'};
+	char letters[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
 	insertTreeNode(-1, letters[0], &tree);
 	insertTreeNode(0, letters[1], &tree);
 	insertTreeNode(0, letters[2], &tree);
@@ -17,14 +17,7 @@ int main(int argc, char const *argv[])
 	insertTreeNode(2, letters[7], &tree);
 	insertTreeNode(2, letters[8], &tree);
 	insertTreeNode(2, letters[9], &tree);
-
-	getTreeRoot(&tree);
-	printf("%c \r\n",getTreeRoot(&tree).value);
-
-	// for (int i = 0; i < MAX; i++)
-	// {
-	// 	printf("%c", tree.nodes[i].value);
-	// 	printf("\r\n");
-	// }
+	insertTreeNode(4, letters[10], &tree);
+	RDisplay(&tree, 0, 0);
 	return 0;
 }
