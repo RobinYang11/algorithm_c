@@ -24,7 +24,7 @@ void initTree(Tree *tree)
 **/
 void insertTreeNode(int parent, char value, Tree *tree)
 {
-  printf("%d\n", tree->nodeNum);
+  // printf("%d\n", tree->nodeNum);
   tree->nodes[tree->nodeNum].value = value;
   tree->nodes[tree->nodeNum].parent = parent;
   tree->nodes[tree->nodeNum].index = tree->nodeNum;
@@ -99,7 +99,8 @@ int treeDepth(Tree *tree)
   int maxDeep =0;
   for(int i = 0 ;i<tree->nodeNum;i++)
   {
-    int deep =0; 
+    int deep =0;
+    //每次执行完，指向父节节点 
     for(int j=i;j>=0;j=tree->nodes[j].parent)
     {
       deep++; 
@@ -108,6 +109,5 @@ int treeDepth(Tree *tree)
       maxDeep = deep;
     }
   }
-
   return maxDeep;
 }

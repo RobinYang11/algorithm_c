@@ -18,17 +18,46 @@
   typedef struct Node {
     char value;
     int parent;
+    int index;
   };
 ```
 树的定义: 
 ```c
+  #define MAX 100;
   //树的定义
   typedef struct Tree {
     //所有节点
-    Node nodes[100];
+    Node nodes[MAX];
     //节点数量
     int nodeNum;
   } 
 
  ```
-##### 
+#### 主要方法
+  - 获取树的深度
+    - 时间复杂度 O(n^2)
+      - 没有优化的空间
+    - 空间复杂度 O(1)
+
+  ```c
+    int treeDepth(Tree *tree){
+
+      int i,j,maxDepth = 0;
+
+      for(i = 0 ; i < tree->nodeNum; i++)
+      {
+        int depth = 0;
+        // j从i 开始,执行完后，指向tree->nodes[j] 的parent
+        for(j = i; j => 0 ; j = tree->nodes[j].parent){
+          depth ++ ;
+        }
+      }
+
+      if(depth > maxDepth)
+      {
+        maxDepth = depth;
+      }
+      return maxDepth;
+    }
+
+  ```
