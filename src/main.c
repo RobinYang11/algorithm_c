@@ -22,7 +22,6 @@ int main(int argc, char const *argv[])
 	insertTreeNode(4, letters[10], &tree);
 	insertTreeNode(10,letters[11],&tree);
 	RDisplay(&tree, 0, 0);
-	// treeDepth(&tree);
 	int deep =	treeDepth(&tree);
 	printf("depth of the tree is:%d \n",deep);
 	return 0;

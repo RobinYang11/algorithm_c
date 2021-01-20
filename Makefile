@@ -90,8 +90,13 @@
 # 	./$(OUTPUTMAIN)
 # 	@echo Executing 'run: all' complete!
 
-main: 
-	gcc ./src/main.c -o ./output/main
+# main: 
+# 	gcc ./src/main.c -o ./output/main
+# tree:
+# 	gcc ./src/tree.c -o ./output/tree
+
+link_tree.o:
+	gcc ./src/link_tree.c -o ./output/link_tree.o
 
 clean:
 	rm -rf ./output/main
