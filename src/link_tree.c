@@ -8,41 +8,59 @@ void insertChild(char type,
                  char value,
                  struct Node *parent)
 {
-  if(parent != NULL)
+  struct Node *node;
+  node->value = value;
+
+  if (parent == NULL)
   {
-    if(strcmp(type,CHILD)) 
-    {
-      printf("hello world");
-    }
+    tree->root = node;
+    return;
   }
 
+  if (strcmp(type, CHILD))
+  {
+    parent->firstChild = node;
+  }
+  else
+  {
+    parent->nextSiblings = node;
+  }
 }
 
-int treeDepth(ChildLinkTree* tree)
+/**
+ * 初始化树 
+ **/
+void initTree(ChildLinkTree *tree)
 {
+  tree->length = 0;
+  tree->root = NULL;
+}
 
+/**
+ * 获取树的深度 
+ **/
+int treeDepth(ChildLinkTree *tree)
+{
   int depth = 0;
-  Node* currentNode =tree->root;
+  Node *currentNode = tree->root;
 
-  if(currentNode == NULL)
+  if (currentNode == NULL)
   {
     return 0;
   }
 
   while (currentNode != NULL)
   {
-   currentNode = currentNode->firstChild;    
-   depth ++;
+    currentNode = currentNode->firstChild;
+    depth++;
   }
-
   return depth;
 }
 
-
 int main(int argc, char const *argv[])
 {
-  /* code */
-  printf("hello world!");
+  ChildLinkTree tree;
+  initTree(&tree);
+  insertChild(CHILD, &tree, 'A', NULL);
   return 0;
 }
-
