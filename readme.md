@@ -3,6 +3,13 @@
 
 #### 树的存储方式
 ##### 一 双亲存储方法. 
+| index | parent |  值   |
+| ----  | -----: | :---- |
+| 0     |   -1   |   A   |
+| 1     |    0   |   B   |
+| 2     |    0   |   C   |
+....
+
  - 1. 找父节点容易O(1).
  - 2. 找子节点需要遍历O(n).
  - 3. 用数组存储所有节点 .
@@ -61,3 +68,26 @@
     }
 
   ```
+  - 按层次输出树
+    - 时间复杂度O(n)
+    - 空间复杂度(nlogn)
+    ```c
+      void RDisplay(Tree *tree ,int gap)
+      {
+        for(int g = 0 ; g < gap ; g++)  
+        {
+          printf("_");
+        }
+        
+        printf("%c",tree->nodes[i].value);
+
+        for(int i = 0 ; i < tree->nodeNum; i++)
+        {
+          RDisplay(tree,gap++);
+        }
+      }
+    ```
+
+
+
+    

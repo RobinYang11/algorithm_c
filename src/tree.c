@@ -52,21 +52,6 @@ TreeNode getTreeRoot(Tree *tree)
   return treeNode;
 }
 
-void goOverTree(Tree *tree)
-{
-  for (int i = 0; i < tree->nodeNum; i++)
-  {
-    printf("%c \b \r\n", tree->nodes[i].value);
-    for (int j = i + 1; j < tree->nodeNum; j++)
-    {
-      if (tree->nodes[j].parent == i)
-      {
-        printf("  %c", tree->nodes[j].value);
-      }
-    }
-    printf("\r\n");
-  }
-}
 
 /**
  * 按层次展示树
@@ -105,6 +90,7 @@ int treeDepth(Tree *tree)
     {
       deep++; 
     }
+
     if(deep>maxDeep){
       maxDeep = deep;
     }
