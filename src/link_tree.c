@@ -3,10 +3,10 @@
 #include <string.h>
 #include "link_tree.h"
 
-void insertChild(char type,
-                 struct ChildLinkTree *tree,
-                 char value,
-                 struct Node *parent)
+Node *insertChild(char type,
+                  struct ChildLinkTree *tree,
+                  char value,
+                  struct Node *parent)
 {
   struct Node *node;
   node->value = value;
@@ -14,7 +14,7 @@ void insertChild(char type,
   if (parent == NULL)
   {
     tree->root = node;
-    return;
+    return node;
   }
 
   if (strcmp(type, CHILD))
@@ -25,6 +25,7 @@ void insertChild(char type,
   {
     parent->nextSiblings = node;
   }
+  return node;
 }
 
 /**
@@ -61,6 +62,16 @@ int main(int argc, char const *argv[])
 {
   ChildLinkTree tree;
   initTree(&tree);
-  insertChild(CHILD, &tree, 'A', NULL);
+  Node *node;
+  node = insertChild(CHILD, &tree, 'A', NULL);
+  node = insertChild(CHILD, &tree, 'B', node);
+  node = insertChild(CHILD, &tree, 'C', node);
+  node = insertChild(CHILD, &tree, 'D', node);
+  node = insertChild(CHILD, &tree, 'E', node);
+  node = insertChild(CHILD, &tree, 'F', node);
+  node = insertChild(CHILD, &tree, 'G', node);
+  node = insertChild(CHILD, &tree, 'H', node);
+
+  printf("%c \n", node->value);
   return 0;
 }
