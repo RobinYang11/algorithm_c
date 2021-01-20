@@ -19,5 +19,7 @@ int main(int argc, char const *argv[])
 	insertTreeNode(2, letters[9], &tree);
 	insertTreeNode(4, letters[10], &tree);
 	RDisplay(&tree, 0, 0);
+	int deep =	treeDepth(&tree);
+	printf("树的深度是：%d \r",deep);
 	return 0;
 }

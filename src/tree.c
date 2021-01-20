@@ -24,8 +24,10 @@ void initTree(Tree *tree)
 **/
 void insertTreeNode(int parent, char value, Tree *tree)
 {
+  printf("%d\n", tree->nodeNum);
   tree->nodes[tree->nodeNum].value = value;
   tree->nodes[tree->nodeNum].parent = parent;
+  tree->nodes[tree->nodeNum].index = tree->nodeNum;
   tree->nodeNum = tree->nodeNum + 1;
 }
 
@@ -92,7 +94,20 @@ void RDisplay(Tree *tree, int index, int gap)
  * @param tree  树 
  *  获取树的深度 
  **/
-int getTreeDeep(Tree *tree)
+int treeDepth(Tree *tree)
 {
+  int maxDeep =0;
+  for(int i = 0 ;i<tree->nodeNum;i++)
+  {
+    int deep =0; 
+    for(int j=i;j>=0;j=tree->nodes[j].parent)
+    {
+      deep++; 
+    }
+    if(deep>maxDeep){
+      maxDeep = deep;
+    }
+  }
 
+  return maxDeep;
 }
