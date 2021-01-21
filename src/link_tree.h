@@ -5,7 +5,7 @@ char *BROTHER = "B";
 
 typedef struct Node
 {
-  char value;
+  char *value;
   //第一个子节点
   struct Node *firstChild;
   //兄弟节点

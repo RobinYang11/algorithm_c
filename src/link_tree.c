@@ -3,31 +3,33 @@
 #include <string.h>
 #include "link_tree.h"
 
-Node *insertChild( char *type,
+Node *insertChild(char *type,
                   struct ChildLinkTree *tree,
-                  char value,
+                  char *value,
                   struct Node *currentNode)
 {
-  struct Node *node;
-  node->value = value;
+  struct Node node = {"P", NULL, NULL};
+  struct Node *pnode = NULL;
+  pnode = &node;
+  pnode->value = value;
 
   if (currentNode == NULL)
   {
-    tree->root = node;
-    return node;
+    tree->root = pnode;
+    return pnode;
   }
   // printf("not empty \n");
   if (0 == strcmp(type, CHILD))
   {
     // printf("equal \n");
-    currentNode->firstChild = node;
+    currentNode->firstChild = pnode;
   }
   else
   {
     // printf("not equal");
-    currentNode->nextSiblings = node;
+    currentNode->nextSiblings = pnode;
   }
-  return node;
+  return pnode;
 }
 
 /**
@@ -70,15 +72,17 @@ void display(Node *node, int gap)
     g++;
   }
 
-  printf("%c\n", node->value);
-  if(node->firstChild != NULL)
+  printf("%s\n", node->value);
+  if (node->firstChild != NULL)
   {
-    display(node->firstChild,gap++);
-  } else
-  {
-    return;
+    printf("%s",node->firstChild->value);
+    // display(node->firstChild, gap++);
   }
-  
+  // else
+  // {
+  //   return;
+  // }
+
   // if(node->nextSiblings != NULL)
   // {
   //   display(node->nextSiblings,gap++);
@@ -91,14 +95,17 @@ int main(int argc, char const *argv[])
   initTree(&tree);
   Node *node;
 
-  node = insertChild(CHILD, &tree, 'A', NULL);
-  node = insertChild(CHILD, &tree, 'B', node);
-  node = insertChild(CHILD, &tree, 'C', node);
-  node = insertChild(CHILD, &tree, 'D', node);
-  node = insertChild(CHILD, &tree, 'E', node);
-  node = insertChild(CHILD, &tree, 'F', node);
-  node = insertChild(CHILD, &tree, 'G', node);
-  node = insertChild(CHILD, &tree, 'H', node);
+  node = insertChild(CHILD, &tree, "A", NULL);
+  // printf("%s", node->value);
+  node = insertChild(CHILD, &tree, "B", node);
+  // printf("%s", node->value);
+
+  node = insertChild(CHILD, &tree, "C", node);
+  node = insertChild(CHILD, &tree, "D", node);
+  node = insertChild(CHILD, &tree, "E", node);
+  node = insertChild(CHILD, &tree, "F", node);
+  node = insertChild(CHILD, &tree, "G", node);
+  node = insertChild(CHILD, &tree, "H", node);
   display(tree.root, 0);
 
   return 0;
