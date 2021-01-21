@@ -3,27 +3,29 @@
 #include <string.h>
 #include "link_tree.h"
 
-Node *insertChild(char type,
+Node *insertChild( char *type,
                   struct ChildLinkTree *tree,
                   char value,
-                  struct Node *parent)
+                  struct Node *currentNode)
 {
   struct Node *node;
   node->value = value;
 
-  if (parent == NULL)
+  if (currentNode == NULL)
   {
     tree->root = node;
     return node;
   }
-
-  if (strcmp(type, CHILD))
+  // printf("not empty \n");
+  if (0 == strcmp(type, CHILD))
   {
-    parent->firstChild = node;
+    // printf("equal \n");
+    currentNode->firstChild = node;
   }
   else
   {
-    parent->nextSiblings = node;
+    // printf("not equal");
+    currentNode->nextSiblings = node;
   }
   return node;
 }
@@ -58,11 +60,37 @@ int treeDepth(ChildLinkTree *tree)
   return depth;
 }
 
+void display(Node *node, int gap)
+{
+
+  int g = 0;
+  while (g < gap)
+  {
+    printf("_");
+    g++;
+  }
+
+  printf("%c\n", node->value);
+  if(node->firstChild != NULL)
+  {
+    display(node->firstChild,gap++);
+  } else
+  {
+    return;
+  }
+  
+  // if(node->nextSiblings != NULL)
+  // {
+  //   display(node->nextSiblings,gap++);
+  // }
+}
+
 int main(int argc, char const *argv[])
 {
   ChildLinkTree tree;
   initTree(&tree);
   Node *node;
+
   node = insertChild(CHILD, &tree, 'A', NULL);
   node = insertChild(CHILD, &tree, 'B', node);
   node = insertChild(CHILD, &tree, 'C', node);
@@ -71,7 +99,7 @@ int main(int argc, char const *argv[])
   node = insertChild(CHILD, &tree, 'F', node);
   node = insertChild(CHILD, &tree, 'G', node);
   node = insertChild(CHILD, &tree, 'H', node);
+  display(tree.root, 0);
 
-  printf("%c \n", node->value);
   return 0;
 }

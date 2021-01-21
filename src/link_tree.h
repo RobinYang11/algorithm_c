@@ -1,7 +1,7 @@
 
-#define MAX 100
-#define CHILD 'C'
-#define BROTHER 'B'
+int MAX = 100;
+char *CHILD = "C";
+char *BROTHER = "B";
 
 typedef struct Node
 {
@@ -10,7 +10,7 @@ typedef struct Node
   struct Node *firstChild;
   //兄弟节点
   struct Node *nextSiblings;
-}Node;
+} Node;
 
 typedef struct ChildLinkTree
 {

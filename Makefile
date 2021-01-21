@@ -99,5 +99,5 @@ link_tree.o:
 	gcc ./src/link_tree.c -o ./output/link_tree.o
 
 clean:
-	rm -rf ./output/main
+	rm -rf ./output/*.o
 	rm -rf ./src/*.o
