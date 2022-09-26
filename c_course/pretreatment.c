@@ -1,8 +1,11 @@
-
 #include <stdio.h>
 
+// 宏表达式
 #define ADD_EXP (m + n)
+// 带参数的宏
 #define ADD(x,y) x+y
+
+// 常量宏
 #define TURE 1
 #define FALSE 0
 
@@ -10,6 +13,8 @@
 //使用尖括号< >，编译器会到系统路径下查找头文件；
 //而使用双引号" "，编译器首先在当前目录下查找头文件，如果没有找到，再到系统路径下查找
 
+
+// 条件宏
 #if __WIN32
 #include <window.h>
 #elif __linux__
