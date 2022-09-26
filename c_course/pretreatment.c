@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define ADD_EXP (m + n)
+#define ADD(x,y) x+y
 #define TURE 1
 #define FALSE 0
 
@@ -17,6 +18,7 @@
 
 void test_define_exp();
 void test_define_const();
+void test_define_with_args();
 
 int main()
 {
@@ -28,14 +30,22 @@ int main()
   printf("time delay!");
   test_define_exp();
   test_define_const();
+  test_define_with_args();
   return 0;
+}
+
+
+void test_define_with_args(){
+    int a =3;
+    int b =4; 
+    printf("ADD(x,y):%d \n",ADD(a,b));
 }
 
 void test_define_const()
 {
   if (TURE)
   {
-    printf("TRUE:%d \n", TURE)
+    printf("TRUE:%d \n", TURE);
   }
 }
 
