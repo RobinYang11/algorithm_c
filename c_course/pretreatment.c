@@ -1,18 +1,21 @@
 #include <stdio.h>
 
+#ifndef ROBIN
+#define ROBIN "ROBIN"
+#endif
+
 // 宏表达式
 #define ADD_EXP (m + n)
 // 带参数的宏
 #define ADD(x,y) x+y
 
 // 常量宏
-#define TURE 1
+#define TRUE 1
 #define FALSE 0
 
 //使用尖括号< >和双引号" "的区别在于头文件的搜索路径不同：
 //使用尖括号< >，编译器会到系统路径下查找头文件；
 //而使用双引号" "，编译器首先在当前目录下查找头文件，如果没有找到，再到系统路径下查找
-
 
 // 条件宏
 #if __WIN32
@@ -24,9 +27,11 @@
 void test_define_exp();
 void test_define_const();
 void test_define_with_args();
+void test_if_define();
 
 int main()
 {
+  printf(ROBIN);
 #if _WIN32
   Sleep(5000);
 #elif __linux__
@@ -36,9 +41,18 @@ int main()
   test_define_exp();
   test_define_const();
   test_define_with_args();
+  test_if_define();
   return 0;
 }
 
+
+void test_if_define(){
+  #ifdef _DEBUG
+    printf("debug mode");     
+  #else
+    printf("release mode");
+  #endif
+}
 
 void test_define_with_args(){
     int a =3;
@@ -48,9 +62,9 @@ void test_define_with_args(){
 
 void test_define_const()
 {
-  if (TURE)
+  if (TRUE)
   {
-    printf("TRUE:%d \n", TURE);
+    printf("TRUE:%d \n", TRUE);
   }
 }
 

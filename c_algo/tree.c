@@ -61,7 +61,7 @@ void RDisplay(Tree *tree, int index, int gap)
   //层次缩进
   for (int i = 0; i < gap; i++)
   {
-    printf("_"); //用来显示树的层次
+    printf("__"); //用来显示树的层次
   }
   printf("%c \r\n", tree->nodes[index].value);
 
