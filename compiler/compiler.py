@@ -39,10 +39,11 @@ def start():
     return tree
 
 
+
 def show_tree(tree):
+
   if(tree !=None):
-    print(tree.value)   
-    print('\n')
+    print(tree.value) 
     if(tree.left != None):
       show_tree(tree.left)
     if(tree.right != None):
@@ -50,7 +51,34 @@ def show_tree(tree):
 
 tree = start()
 
-show_tree(tree)
+
+my_tree =Node()
+
+my_tree.value ="0"
+
+n1= Node()
+n1.value="1"
+n2= Node()
+n2.value="2"
+
+n3= Node()
+n3.value = "3"
+
+n5 =Node()
+n5.value="5"
+n3.left =n5
+
+n1.left=n3
+
+n4= Node()
+n4.value = "4"
+n1.right= n4
+
+my_tree.left= n1
+my_tree.right=n2
+
+
+show_tree(my_tree)
 
 
 
