@@ -5,7 +5,7 @@ struct Node
 {
   int value;
   struct Node *next;
-  struct Node *pre;
+  struct Node *pre;kjkj
 };
 
 struct Node *arr2list(int *arr, int size)
