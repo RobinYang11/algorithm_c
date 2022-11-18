@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../header/hash.h"
 #define CAPACITY 5000
-
-typedef struct hash_item HashItem;
-typedef struct hash_table HashTable;
 
 struct hash_item
 {
