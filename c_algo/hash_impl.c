@@ -4,6 +4,7 @@
 
 unsigned long hash_function(char *str);
 void test_my_hash_idea();
+int my_hash_function(char *str, int capacity);
 
 int main()
 {
@@ -18,19 +19,24 @@ int main()
 
 void test_my_hash_idea()
 {
-  char *arr[1000];
+  int capacity = 1000;
+  char *arr[capacity];
   printf("out of index:%s \n", arr[999]);
   char *names[] = {"robin", "advid", "asdf"};
   for (int i = 0; i < 3; i++)
   {
-    int sum = 0;
-    for (int j = 0; names[i][j]; j++)
-    {
-      sum += names[i][j];
-    }
-    int index = sum % 1000;
+    int index = my_hash_function(names[i], capacity);
     arr[index] = names[i];
   }
+  printf("test hash: %s \n", arr[my_hash_function("robin", capacity)]);
+}
+
+int my_hash_function(char *str, int capacity)
+{
+  int i = 0;
+  for (int j = 0; str[j]; j++)
+    i += str[j];
+  return i % capacity;
 }
 
 unsigned long hash_function(char *str)
