@@ -1,6 +1,8 @@
 
+#include <stdio.h>
 #include <stdlib.h>
-#include "../header/hash.h";
+#include <string.h>
+#include "../header/hash.h"
 
 struct linked_list
 {
@@ -48,7 +50,7 @@ LinkedList *linked_list_insert(LinkedList *list, HashItem *item)
   return list;
 }
 
-HashItem linked_list_remove(LinkedList *list)
+HashItem *linked_list_remove(LinkedList *list)
 {
 
   if (!list)
@@ -65,8 +67,8 @@ HashItem linked_list_remove(LinkedList *list)
 
   temp->next = NULL;
   list = node;
-  HashItem it = NULL;
-  memcopy(temp->item, it, sizeof(HashItem));
+  HashItem *it = NULL;
+  memcpy(temp->item, it, sizeof(HashItem));
   free(temp->item->key);
   free(temp->item->value);
   free(temp->item);
@@ -86,4 +88,10 @@ void free_linked_list(LinkedList *list)
     free(temp->item);
     free(temp);
   }
+}
+
+int main()
+{
+  printf("OK /n");
+  return 0;
 }

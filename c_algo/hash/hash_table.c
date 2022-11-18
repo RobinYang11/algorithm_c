@@ -13,9 +13,49 @@ struct hash_item
 struct hash_table
 {
   HashItem **items; // Contains an array of pointers to items;
+  LinkedList **overflow_buckects;
   int size;
   int count;
 };
+
+struct linked_list
+{
+  HashItem *item;
+  LinkedList *next;
+};
+
+int hash_func(char *key);
+void handle_collision(HashTable *table, HashItem *item);
+
+HashTable *create_table(int size);
+HashItem *create_item(char *key, char *value);
+void insert_item(HashTable *table, char *key, char *value);
+char *hash_search(HashTable *table, char *key);
+void free_table(HashTable *table);
+void print_search(HashTable *table, char *key);
+void print_table(HashTable *table);
+
+LinkedList **create_overflow_buckets(HashTable *table);
+void free_overflow_buckets(HashTable *table);
+
+LinkedList *create_list();
+LinkedList *linked_list_insert(LinkedList *list, HashItem *item);
+void free_linked_list(LinkedList *list);
+HashItem *linked_list_remove(LinkedList *list);
+
+int main()
+{
+  HashTable *h_table = create_table(CAPACITY);
+  insert_item(h_table, "name", "robin");
+  insert_item(h_table, "age", "33");
+  insert_item(h_table, "address", "china");
+  print_search(h_table, "name");
+  print_search(h_table, "age");
+  print_search(h_table, "address");
+
+  printf("OK \n");
+  return 0;
+}
 
 HashItem *create_item(char *key, char *value)
 {
@@ -37,6 +77,7 @@ HashTable *create_table(int size)
   {
     table->items[i] = NULL;
   }
+  table->overflow_buckects = create_overflow_buckets(table);
   return table;
 }
 
@@ -70,6 +111,7 @@ void free_table(HashTable *table)
     if (item != NULL)
       free_item(item);
   }
+  free_overflow_buckets(table);
   free(table->items);
   free(table);
 }
@@ -151,16 +193,106 @@ void print_search(HashTable *table, char *key)
   printf("Key:%s, Value:%s \n", key, val);
 }
 
-int main()
+LinkedList *create_list()
 {
-  HashTable *h_table = create_table(CAPACITY);
-  insert_item(h_table, "name", "robin");
-  insert_item(h_table, "age", "33");
-  insert_item(h_table, "address", "china");
-  print_search(h_table, "name");
-  print_search(h_table, "age");
-  print_search(h_table, "address");
-
-  printf("OK \n");
-  return 0;
+  LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
+  return list;
 }
+
+LinkedList *linked_list_insert(LinkedList *list, HashItem *item)
+{
+  if (!list)
+  {
+    LinkedList *head = create_list();
+    head->item = item;
+    head->next = NULL;
+    list = head;
+    return list;
+  }
+  else if (list->next == NULL)
+  {
+    LinkedList *node = create_list();
+    node->item = item;
+    node->next = NULL;
+    list->next = node;
+    return list;
+  }
+
+  // 获取list中的最后一个元素
+  LinkedList *temp = list;
+  while (temp->next->next)
+  {
+    temp = temp->next;
+  }
+
+  LinkedList *node = create_list();
+  node->item = item;
+  node->next = NULL;
+  // 插入list的最后一个元素后面
+  temp->next = node;
+  return list;
+}
+
+HashItem *linked_list_remove(LinkedList *list)
+{
+
+  if (!list)
+  {
+    return NULL;
+  }
+  if (!list->next)
+  {
+    return NULL;
+  }
+
+  LinkedList *node = list->next;
+  LinkedList *temp = list;
+
+  temp->next = NULL;
+  list = node;
+  HashItem *it = NULL;
+  memcpy(temp->item, it, sizeof(HashItem));
+  free(temp->item->key);
+  free(temp->item->value);
+  free(temp->item);
+  free(temp);
+  return it;
+}
+
+void free_linked_list(LinkedList *list)
+{
+  LinkedList *temp = list;
+  while (list)
+  {
+    temp = list;
+    list = list->next;
+    free(temp->item->key);
+    free(temp->item->value);
+    free(temp->item);
+    free(temp);
+  }
+}
+
+LinkedList **create_overflow_buckets(HashTable *table)
+{
+  LinkedList **buckets = (LinkedList **)calloc(table->size, sizeof(LinkedList **));
+  for (int i = 0; i < table->size; i++)
+  {
+    buckets[i] = NULL;
+  }
+  return buckets;
+}
+
+void free_overflow_buckets(HashTable *table)
+{
+  LinkedList **buckets = table->overflow_buckects;
+  for (int i = 0; i < table->size; i++)
+  {
+    free_linked_list(buckets[i]);
+  }
+  free(buckets);
+}
+
+
+
+
